@@ -69,4 +69,16 @@ else:
 
 
 
-
+"""
+if use try - except:
+try:
+    even_avg = round((sum(even_numbers) / len(even_numbers)), 2)
+    print(f'Average number from even numbers list: {even_avg}')
+except ZeroDivisionError:
+    print ("There are no even numbers.")
+try:
+    odd_avg = round((sum(odd_numbers) / len(odd_numbers)), 2)
+    print(f'Average number from odd numbers list: {odd_avg}')
+except ZeroDivisionError:
+    print ("There are no odd numbers.")
+"""
