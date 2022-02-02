@@ -14,7 +14,7 @@ dict_list = []
 # Method returns lowercase letters
 letters = string.ascii_lowercase
 # number of created dictionary's returns a random number between the given range 2 and 10
-dict_number = r.randint(2, 4)
+dict_number = r.randint(2, 10)
 # Loop is used in order to fill list with random number of dictionaries
 for i in range(dict_number):
     '''
