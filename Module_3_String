@@ -1,0 +1,28 @@
+import re
+
+# copy text to variable
+text = '''homEwork:
+tHis iz your homeWork, copy these Text to variable. 
+
+	You NEED TO normalize it fROM letter CASEs point oF View. also, create one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph.
+
+	it iZ misspeLLing here. fix“iZ” with correct “is”, but ONLY when it Iz a mistAKE. 
+
+	last iz TO calculate nuMber OF Whitespace characteRS in this Text. caREFULL, not only Spaces, but ALL whitespaces. I got 87.
+'''
+
+# Task1 - calculate number of whitespace characters in this Text
+# use regular expression to count whitespaces
+# '\s' Matches Unicode whitespace characters (which includes [ \t\n\r\f\v])
+white_spaces = re.findall(r'\s', text)
+print('Task1\nCount of white_spaces:', len(white_spaces))
+print('White_spaces:', white_spaces)
+
+'''
+# Check Task1 :
+# '\S' Matches any character which is not a whitespace character
+S = re.findall(r'\S', text)
+# print('length', len(S), S)
+check = len(text) - len(S)
+print(len(white_spaces) == check)
+'''
