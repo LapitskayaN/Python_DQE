@@ -17,7 +17,7 @@ tHis iz your homeWork, copy these Text to variable. 
 # '\s' Matches Unicode whitespace characters (which includes [ \t\n\r\f\v])
 white_spaces = re.findall(r'\s', text)
 print(f'Task1\nCount of whitespaces in the text: {len(white_spaces)}')
-print('White_spaces:', white_spaces)
+# print('White_spaces:', white_spaces)
 
 '''
 # Check Task1 :
@@ -29,41 +29,40 @@ print(len(white_spaces) == check)
 '''
 
 # Task 2 - normalize the text from letter cases point of view
-normalize_text = ""
 # use regexp to multiple conditions of split
 # [.]\s* - to find sentence after '.'
 # \n -to find 'red' rows (after word "Homework:" in first sentence) [:]\n
+normalize_text = ""
+# I use regexp to multiple conditions of split
+print(re.split(r'([.]\s*|\n)', text))
 for i in re.split(r'([.]\s*|\n)', text):
     normalize_text += i.capitalize()
 print(f'\nTask 2 \n Text with normal word case is:\n{normalize_text}')
-# print(re.split(r'([.]\s*|[:]\n)', text))
 
 
 # Task 3 - create one more sentence with last words of each existing sentence
 last_words = re.findall(r"\w+(?=[.])", normalize_text)
-print('\nTask 3\n Last words of all sentence:', last_words)
+print(f'\nTask 3\n Last words of all sentence: {last_words}')
 new_sentence = ' '.join(last_words)
-# print(new_sentence)
-add_sent = new_sentence.capitalize()
-print(f' This sentence need to add: {add_sent}')
+added_sentence = new_sentence.capitalize()
+print(f' Added sentence to our text: {added_sentence}')
 
 
 # Task 4  - add new sentence to the end of the paragraph (after "end of this paragraph")
 place_to_past = 'end of this paragraph'
 # I create list of text splits
-list_of_text = re.split('(^|[.]\s*)', normalize_text)
-print('e', list_of_text)
-print('e', list_of_text)
+list_of_text = re.split(r'(^|[.]\s*)', normalize_text)
+text_with_new_sentence = ""
 
 # I create a loop that finds a paragraph which needs to add the sentence
+# Use enumerate() to get a counter in a loop
 for index, i in enumerate(list_of_text):
-
     if place_to_past in i.lower():
-        list_of_text[index] = i + '. ' + add_sent
+        list_of_text[index] = i + '. ' + added_sentence
+        # fix 'Fix“iz”'
         text_with_new_sentence = ''.join(list_of_text).replace('x“', 'x “')
     else:
         text_with_new_sentence = ''.join(list_of_text).replace('x“', 'x “')
-
 print(f'\nTask 4 \nThis is text with new sentence:\n{text_with_new_sentence}')
 
 
@@ -74,4 +73,5 @@ print(f'\nTask 5 \nFinal text is: \n{final_text} ')
 
 # Task 6
 final_white_spaces = re.findall(r'\s', final_text)
-print('Task6\nCount of white_spaces in final text:', len(final_white_spaces))
+print(f'Task6\nCount of whitespaces in final text: {len(final_white_spaces)}')
+
