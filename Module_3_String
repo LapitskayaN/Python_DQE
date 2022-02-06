@@ -34,7 +34,7 @@ print(len(white_spaces) == check)
 # \n -to find 'red' rows (after word "Homework:" in first sentence) [:]\n
 normalize_text = ""
 # I use regexp to multiple conditions of split
-print(re.split(r'([.]\s*|\n)', text))
+# print(re.split(r'([.]\s*|\n)', text))
 for i in re.split(r'([.]\s*|\n)', text):
     normalize_text += i.capitalize()
 print(f'\nTask 2 \n Text with normal word case is:\n{normalize_text}')
@@ -74,4 +74,3 @@ print(f'\nTask 5 \nFinal text is: \n{final_text} ')
 # Task 6
 final_white_spaces = re.findall(r'\s', final_text)
 print(f'Task6\nCount of whitespaces in final text: {len(final_white_spaces)}')
-
