@@ -41,7 +41,7 @@ print(f'\nTask 2 \n Text with normal word case is:\n{normalize_text}')
 
 
 # Task 3 - create one more sentence with last words of each existing sentence
-last_words = re.findall(r"\w+(?=[.])", normalize_text)
+last_words = re.findall(r"\w+(?=[.]|[?]|[!])", normalize_text)
 print(f'\nTask 3\n Last words of all sentence: {last_words}')
 new_sentence = ' '.join(last_words)
 added_sentence = new_sentence.capitalize()
