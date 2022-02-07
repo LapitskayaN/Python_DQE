@@ -58,7 +58,8 @@ text_with_new_sentence = ""
 # Use enumerate() to get a counter in a loop
 for index, i in enumerate(list_of_text):
     if place_to_past in i.lower():
-        list_of_text[index] = i + '. ' + added_sentence
+        list_of_text[index] = i + list_of_text[index+1][0] + ' ' + added_sentence + '. '
+        list_of_text[index + 1] = list_of_text[index+1][1:]
         # fix 'Fix“iz”'
         text_with_new_sentence = ''.join(list_of_text).replace('x“', 'x “')
     else:
