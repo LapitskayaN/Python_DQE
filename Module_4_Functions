@@ -1,5 +1,49 @@
+import random as r
+import string
 
 '''
-TASK1
 Refactor homeworks from module 2 and 3 using functional approach with decomposition.
 '''
+
+
+# Task 1
+# Refactor homeworks from module 2
+def create_list_with_dicts():
+    dict_list = []
+    letters = string.ascii_lowercase
+    dict_number = r.randint(2, 4)
+    for i in range(dict_number):
+        random_dict = {r.choice(letters): r.randint(0, 100) for j in range(dict_number)}
+        dict_list.append(random_dict)
+    print(f'List with created dicts "dict_list:" {dict_list}')
+    return dict_list
+
+
+def create_new_dict(dict_list):
+    result_dict = {}
+    repeated_letters = {}
+    for i in dict_list:
+        for key, values in i.items():
+            if key not in result_dict:
+                result_dict[key] = i.get(key)
+            else:
+                if i[key] > result_dict[key]:
+                    result_dict[key] = i[key]
+                    repeated_letters[key] = dict_list.index(i) + 1
+                else:
+                    for j in dict_list:
+                        for k, v in j.items():
+                            if k == key and v == result_dict[key]:
+                                repeated_letters[key] = dict_list.index(j) + 1
+    for key in list(result_dict):
+        if key in repeated_letters:
+            result_dict[key + f'_{repeated_letters[key]}'] = result_dict.pop(key)
+    print('\nFINAL dict - result_dict :', result_dict)
+    return result_dict
+
+
+basic_list_with_dicts = create_list_with_dicts()
+create_new_dict(basic_list_with_dicts)
+
+
+# Refactor homeworks from module 3
