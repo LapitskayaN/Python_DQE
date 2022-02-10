@@ -79,7 +79,7 @@ def normalizing_text(text_for_normalizing=''):
 # function for finding last words from all text
 def find_last_words(normalize_text=''):
     if normalize_text == '':
-        print("Enter string value")
+        print("There is no string value for normalization")
     else:
         last_words = re.findall(r"\w+(?=[.!?])", normalize_text)
         print(f'\nLast words of all sentence: {last_words}')
@@ -92,7 +92,7 @@ def find_last_words(normalize_text=''):
 # function adding new sentence
 def add_sentence_to_text(text_for_input='', place_to_past_sentence='', added_sentence=''):
     if text_for_input == '':
-        print("Enter string value")
+        print("There is no text to add sentence")
     else:
         list_of_text = re.split(r'(^|[.!?]\s*)', text_for_input)
         text_with_new_sentence = ""
@@ -110,7 +110,7 @@ def add_sentence_to_text(text_for_input='', place_to_past_sentence='', added_sen
 # function for fixing "iz"
 def fixing_iz(text_with_new_sentence):
     if text_with_new_sentence == '':
-        print("Enter string value")
+        print("Enter string value for fixing IZ")
     else:
         final_text = text_with_new_sentence.replace(' iz ', ' is ')
         print(f'\nFinal text is: \n{final_text} ')
