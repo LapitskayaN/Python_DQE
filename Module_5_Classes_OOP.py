@@ -15,89 +15,161 @@ Each new record should be added to the end of file. Commit file in git for revie
 import datetime
 
 
-# parent Class NewsFeed
+def current_date():
+    return datetime.datetime.now().strftime("%d/%m/%y %I:%M")
+
+
 class NewsFeed:
-    def __init__(self):
-        self.text = input("Enter text of publication: ")
+    def __init__(self, type_news, text, date):
+        self.type_news = type_news
+        self.text = text
+        self.date = date
+
+    def __str__(self):
+        return f'{self.type_news} , {self.text} , {self.date}\n'
+
+    def write_to_file(self):
+        record = self.__str__()
+        with open("NewsFeed.txt", "a") as NewsFeed_file:
+            NewsFeed_file.write(record)
 
 
-# it was created class News. It depends on the parent class
 class News(NewsFeed):
-    #  create class News , adds attributes : city, text
-    def __init__(self):
-        super().__init__()  # calling parent class init features
-        self.city = input("Enter city: ")
-        self.date = datetime.datetime.now().strftime("%d/%m/%y %I:%M")
+    def __init__(self, text, city, type_news='News', date=current_date()):
+        super().__init__(type_news, text, date)
+        self.city = city
 
-    def __str__(self):  # formatting class output
-
+    def __str__(self):
         return (
-            f'\n---News -------------------'
+            f'\n---{self.type_news} -------------------'
             f'\n{self.text}'
-            f'\n{self.city}, {self.date}'
+            f'\n{self.city}, {self.date}\n\n'
         )
 
 
-# created a class for private. It depends on the parent class
 class PrivateAd(NewsFeed):
-    # create class PrivateAd , adds attributes : city, text
-    def __init__(self):
-        super().__init__()  # calling parent class init features
-        self.expiration_date = datetime.date((int(input("Enter ad last date:\nyear: "))), (int(input("month: "))),
-                                             (int(input("day: "))))
-        self.today_date = datetime.date.today()
-        # len - number days that are left
-        self.len = self.expiration_date - self.today_date
+    def __init__(self, text, date, len_days, type_news='PrivateAd'):
+        self.date = date
+        super().__init__(type_news, text, date)
+        self.len_days = len_days
 
-    def __str__(self):  # formatting class output
-
+    def __str__(self):
         return (
-            f'\n---PrivateAd -------------------'
+            f'\n---{self.type_news}-------------------'
             f'\n{self.text}'
-            f'\nActual until: {self.expiration_date:%d/%m/%Y}, {self.len.days} days left'
+            f'\nActual until: {self.date:%d/%m/%Y} | {self.len_days}  left\n\n'
         )
 
 
-# created a class for private ad with dependence on the parent class
 class Finance(NewsFeed):
-    def __init__(self):
-        super().__init__()
-        self.currency = input("Enter currency (USD, EUR, RUR): ")
-        self.ex_rate = input("Add currency exchange rate: ")
-        self.date = datetime.datetime.today().strftime("%d/%m/%Y")
+    def __init__(self,  currency, ex_rate, text='Exchange rate National Bank RB', type_news='Finance',
+                 date=current_date()):
+        super().__init__(type_news, text, date)
+        self.currency = currency
+        self.ex_rate = ex_rate
 
-    def __str__(self):  # formatting class output
-
+    def __str__(self):
         return (
-            f'\n---Exchange_rate -------------------'
+            f'\n---{self.type_news} -------------------'
             f'\n{self.text}'
             f'\nCurrency {self.currency} on the date: {self.date}'
-            f'\n1  {self.currency} =  {self.ex_rate} BYN '
+            f'\n1  {self.currency} =  {self.ex_rate} BYN \n\n'
         )
 
 
-# create e a function list_news() with  condition about entered data
-def list_news():
-    # User select what data type he wants to add
-    print("--- Welcome to news feed application! ---")
-    news_type = input("Enter type news you want to add - "
-                      "News(1), PrivateAd(2), Exchange_rate(3) or EXIT from App(4): ")
-    while news_type != '4':
-        post = ''
-        if news_type == '1':
-            post = News()
-        elif news_type == '2':
-            post = PrivateAd()
-        elif news_type == '3':
-            post = Finance()
-            # output message in case if we don't choose correct Class
+def post_news():
+    text = ""
+    city = ""
+    while text == "" or city == "":
+        print("--News-----\n"
+              "Please, fill the following fields:")
+        text = input("Enter text news: ")
+        city = input("Enter city: ")
+    confirmation = input("Are you sure that you want to add the news? (y / n) ")
+    if confirmation == "y":
+        news = News(text, city)
+        news.write_to_file()
+        print("News was successfully added to news feed!")
+
+
+def post_private_ad():
+    text = ""
+    today_date = datetime.date.today()
+    year = -1
+    month = -1
+    day = -1
+    while text == "":
+        print("--Private Ad-----\n"
+              "Please, fill the following fields:")
+        text = input("Enter text Private Ad: ")
+    while year < 2022 or year > 2050:
+        try:
+            year = int(input("Enter year of expiration date:\n year: "))
+        except ValueError:
+            print("Incorrect input year! Try more")
+    while month < 0 or month > 12:
+        try:
+            month = int(input("Enter month of expiration date:\nmonth: "))
+        except ValueError:
+            print("Incorrect input month! Try more")
+    while day < 0 or day > 31:
+        try:
+            day = int(input("Enter day of expiration date:\nday: "))
+        except ValueError:
+            print("Incorrect input day! Try more")
+    expiration_date = datetime.date(year, month, day)
+    confirmation = input("Are you sure that you want to add the news? (y / n) ")
+    len_days = expiration_date - today_date
+    if confirmation == "y":
+        private_ad = PrivateAd(text, expiration_date, len_days)
+        private_ad.write_to_file()
+        print("Private Ad was successfully added to news feed!")
+
+
+def post_finance_news():
+    currency = ""
+    ex_rate = -1
+    print("--Finance_ex_rate-----\n"
+          "Please, fill the following fields:")
+    while currency == '':
+        choice_currency = input("Choose currency USD(1), EUR(2), RUR(3): ")
+        if choice_currency == '1':
+            currency = "USD"
+        elif choice_currency == '2':
+            currency = "EUR"
+        elif choice_currency == '3':
+            currency = "RUR"
         else:
-            input("Incorrect choice! Try more")
-        with open('NewsFeed.txt', 'a') as News_Feed:  # append to file
-            print(post, file=News_Feed)
-        print("------------------------")
-        news_type = input("Enter type news you want to add -"
-                          "News(1), PrivateAd(2), Exchange_rate(3) or EXIT from App(4): ")
+            print("Incorrect currency choice! Try more")
+    while ex_rate < 0:
+        try:
+            ex_rate = float(input("Add currency exchange rate: "))
+        except ValueError:
+            print("Incorrect currency choice! Try more")
+    confirmation = input("Are you sure that you want to add the news? (y / n) ")
+    if confirmation == "y":
+        finance_news = Finance(currency, ex_rate)
+        finance_news.write_to_file()
+        print("News was successfully added to news feed!")
 
 
-list_news()
+def choice_news_type():
+    print("--- Welcome to news feed application! ---")
+    print("Enter type news you want to add - News(1), PrivateAd(2), FinanceNews(3) or EXIT from App(4): ")
+
+
+choice_news_type()
+choice = input('Your choice: ')
+while choice != '4':
+    post = ''
+    if choice == '1':
+        post_news()
+    elif choice == '2':
+        post_private_ad()
+    elif choice == '3':
+        post_finance_news()
+    else:
+        print("Incorrect choice! Try more")
+    choice_news_type()
+    choice = input('Your choice: ')
+
