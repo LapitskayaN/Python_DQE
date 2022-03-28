@@ -65,16 +65,15 @@ class PrivateAd(NewsFeed):
         expiration_date = datetime.date(year, month, day)
         return expiration_date
 
-    def publ_privat_ad(self):
+    def publ_private_ad(self):
         title = "Private Ad"
         expiration_date = self.input_exp_date()
         len_days = expiration_date - datetime.date.today()
-        text_privatad_add = "Actual until:" + str(expiration_date) + '; ' + str(len_days) + 'left '
-        publ_pivatad = self.format_text(title, self.input_text(), text_privatad_add)
+        text_private_ad_add = "Actual until:" + str(expiration_date) + '; ' + str(len_days) + ' left '
+        publ_private_ad = self.format_text(title, self.input_text(), text_private_ad_add)
         if self.conformation_adding() == "y":
-            self.write_to_file(publ_pivatad)
+            self.write_to_file(publ_private_ad)
             print("Private Ad was successfully added to news feed!\n")
-
 
 
 class Finance(NewsFeed):
@@ -102,16 +101,16 @@ class Finance(NewsFeed):
         return ex_rate
 
     def finance_deal_type(self):
-        type = ""
-        while type == '':
+        currency_type = ""
+        while currency_type == '':
             finance_deal_type = input("Choose finance deal_type SELLING(1), BUYING(2): ")
             if finance_deal_type == '1':
-                type = "SELLING"
+                currency_type = "SELLING"
             elif finance_deal_type == '2':
-                type = "BUYING"
+                currency_type = "BUYING"
             else:
                 print("Incorrect currency choice! Try more")
-        return type
+        return currency_type
 
     def publ_finance(self):
         title = "Finance"
@@ -128,7 +127,7 @@ while True:
     if choose_type == '1':
         News().publ_news()
     elif choose_type == '2':
-        PrivateAd().publ_privat_ad()
+        PrivateAd().publ_private_ad()
     elif choose_type == '3':
         Finance().publ_finance()
     elif choose_type == '4':
