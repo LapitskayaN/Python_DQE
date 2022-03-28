@@ -3,12 +3,10 @@ Create a tool, which will do user generated news feed:
 1.User select what data type he wants to add
 2.Provide record type required data
 3.Record is published on text file in special format
-
 You need to implement:
 1.News – text and city as input. Date is calculated during publishing.
 2.Private ad – text and expiration date as input. Day left is calculated during publishing.
 3.Your unique one with unique publish rules.
-
 Each new record should be added to the end of file. Commit file in git for review.
 """
 
@@ -20,10 +18,11 @@ def current_date():
     return datetime.datetime.now().strftime("%d/%m/%y %I:%M")
 
 
-class ChooseTypeNews:
-    def __init__(self):
-        self.type_NewsFeed = input(f"""Enter type news you want to add - 
-                      News(1), PrivateAd(2), Exchange_rate(3) or EXIT from App(4): """)
+def choose_type_news_feed():
+    type_news_feed = input(f"""Enter type news you want to add - 
+        \n 1 - News, \n 2 - PrivateAd, \n 3 - Exchange_rate or \n 4 - EXIT from App
+    Your choice: """)
+    return type_news_feed
 
 
 class NewsFeed:
@@ -46,7 +45,7 @@ class News(NewsFeed):
         if confirmation == "y":
             self.text_format = f"---{self.title}------------------" \
                                f"\n{self.text}" \
-                               f"\n{self.date}\n\n"
+                               f"\n{self.date}, {self.city}\n\n"
             print("News was successfully added to news feed!\n")
 
 
@@ -98,12 +97,12 @@ class Finance(NewsFeed):
 
 
 while True:
-    choose_type = ChooseTypeNews()
-    if choose_type.type_NewsFeed == '1':
+    choose_type = choose_type_news_feed()
+    if choose_type == '1':
         News().write_to_file()
-    elif choose_type.type_NewsFeed == '2':
+    elif choose_type == '2':
         PrivateAd().write_to_file()
-    elif choose_type.type_NewsFeed == '3':
+    elif choose_type == '3':
         Finance().write_to_file()
-    elif choose_type.type_NewsFeed == '4':
+    elif choose_type == '4':
         sys.exit()
