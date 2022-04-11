@@ -32,7 +32,7 @@ def write_from_file(target_of_writing="News3.txt"):
     file_path = ''
     file_name = ''
     if type_folder == '1':
-        file_path = f"""D:\DQE\Python\Python_DQE\dop"""
+        file_path = f"""D:\DQE\Python\Python_DQE\DOP"""
         file_name = f"""News_add.txt"""
     elif type_folder == '2':
         file_path = input(r"Enter path to file (in format D:\) ")
@@ -67,7 +67,7 @@ class NewsFeed:
 
 class News(NewsFeed):
     def input_city(self):
-        city = input('Enter city of news: ')
+        city = normalizing_text(input('Enter city of news: '))
         return city
 
     def publ_news(self):
@@ -160,8 +160,5 @@ while True:
         write_from_file()
     elif choose_input == '3':
         sys.exit()
-
-
-
 
 
