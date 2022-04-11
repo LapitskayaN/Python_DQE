@@ -9,7 +9,7 @@ import datetime
 import sys
 import re
 import os
-from Module_4_Functions import normalizing_text
+from Module_4_Functions_for_Module6 import normalizing_text
 
 
 def current_date():
@@ -27,34 +27,28 @@ def choose_type_news_feed():
     return type_news_feed
 
 
-def choose_folder():
-    folder = input(f"""Folder for file: - \n1 - Default folder, \n2 - Choose folder """)
-    count_of_publ = int(input('Input count of publ from file '))
-    if folder == '1':
-        file_path = sys.path[1]
-    elif folder == '2':
-        file_path = input(r"Enter path to file (in format C:\) ")
+def write_from_file(target_of_writing="News3.txt"):
+    type_folder = input(f"""Folder for file: - \n1 - Default folder, \n2 - Choose folder   \n    Your choice: """)
+    file_path = ''
+    file_name = ''
+    if type_folder == '1':
+        file_path = f"""D:\DQE\Python\Python_DQE\dop"""
+        file_name = f"""News_add.txt"""
+    elif type_folder == '2':
+        file_path = input(r"Enter path to file (in format D:\) ")
         file_name = input('Enter your file name\n')
-
-
-def read_from_file():
     file_path = os.path.join(file_path, file_name)
     file = open(file_path, 'r').read()
     text_from_file = re.split("\\n\\n", file)
-    return text_from_file
-
-def write_from_file(target_of_writing="News6.txt"):
-     with open(target_of_writing, "a") as file:
-        if count_of_publ > 0:
-            for i in text_from_file:
-                if text_from_file.index(i) < count_of_publ:
-                    file.write(i + '\n\n')
-        os.remove(file_path)
+    with open(target_of_writing, "a") as file:
+        for i in text_from_file:
+            file.write(i + '\n\n')
+    os.remove(file_path)
 
 
 class NewsFeed:
     def input_text(self):
-        in_text = input("Enter text of news_feed: ")
+        in_text = normalizing_text(input("Enter text of news_feed: "))
         return in_text
 
     def format_text(self, title, text_news_feed, text_additional):
@@ -163,8 +157,11 @@ while True:
         elif choose_type == '4':
             sys.exit()
     if choose_input == '2':
-        choose_folder()
-        read_from_file()
         write_from_file()
+    elif choose_input == '3':
+        sys.exit()
+
+
+
 
 
