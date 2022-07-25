@@ -27,23 +27,47 @@ def choose_type_news_feed():
     return type_news_feed
 
 
-def write_from_file(target_of_writing="News3.txt"):
+def write_from_file(target_of_writing="News_final.txt"):
     type_folder = input(f"""Folder for file: - \n1 - Default folder, \n2 - Choose folder   \n    Your choice: """)
     file_path = ''
     file_name = ''
     if type_folder == '1':
-        file_path = f"""D:\DQE\Python\Python_DQE\DOP"""
+        file_path = f"""D:\DQE\Python\Python_DQE_Lapitskaya"""
         file_name = f"""News_add.txt"""
     elif type_folder == '2':
         file_path = input(r"Enter path to file (in format D:\) ")
         file_name = input('Enter your file name\n')
+    need_parsing = input(f"""Is text need parsing: - \n1 - No, \n2 - Yes  \n    Your choice: """)
     file_path = os.path.join(file_path, file_name)
     file = open(file_path, 'r').read()
-    text_from_file = re.split("\\n\\n", file)
-    with open(target_of_writing, "a") as file:
-        for i in text_from_file:
-            file.write(i + '\n\n')
-    os.remove(file_path)
+    if need_parsing == '1':
+        text_from_file = re.split("\\n\\n", file)
+        with open(target_of_writing, "a") as file:
+            for i in text_from_file:
+                file.write('\n\n'+i)
+                """
+        os.remove(file_path)
+        """
+    if need_parsing == '2':
+        text_from_file = re.split("\\n", file)
+        for element in text_from_file:
+            parsed_list = element.split('---')
+            post_code = parsed_list[0]
+            if post_code == '1':
+                text = normalizing_text(parsed_list[1])
+                city = parsed_list[2]
+                q = NewsFeed().format_text('News', text, city)
+            elif post_code == '2':
+                text_private_add = normalizing_text(parsed_list[1])
+                end_date = parsed_list[2]
+                q = NewsFeed().format_text('Private Ad', text_private_add, end_date)
+            elif post_code == '3':
+                currency_type  = normalizing_text(parsed_list[1])
+                ex_rate = parsed_list[2]
+                q = NewsFeed().format_text('Finance', currency_type , ex_rate)
+            with open(target_of_writing, "a") as file:
+                for i in q:
+                    file.write(i)
 
 
 class NewsFeed:
@@ -60,7 +84,7 @@ class NewsFeed:
         confirmation = input("Are you sure that you want to add the news? (y / n) ")
         return confirmation
 
-    def write_to_file(self, publ, filename="News3.txt"):
+    def write_to_file(self, publ, filename="News_final.txt"):
         with open(filename, "a") as NewsFeed_file:
             NewsFeed_file.write(publ)
 
