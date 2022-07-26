@@ -10,6 +10,7 @@ import sys
 import re
 import os
 from Module_4_Functions_for_Module6 import normalizing_text
+from pathlib import Path
 
 
 def current_date():
@@ -32,13 +33,15 @@ def write_from_file(target_of_writing="News_final.txt"):
     file_path = ''
     file_name = ''
     if type_folder == '1':
-        file_path = f"""D:\DQE\Python\Python_DQE_Lapitskaya"""
-        file_name = f"""News_add.txt"""
+        file_path = './'
+        file_name = 'News_add.txt'
     elif type_folder == '2':
         file_path = input(r"Enter path to file (in format D:\) ")
         file_name = input('Enter your file name\n')
     need_parsing = input(f"""Is text need parsing: - \n1 - No, \n2 - Yes  \n    Your choice: """)
-    file_path = os.path.join(file_path, file_name)
+    curr_dir = Path(__file__).parent
+    file_path = curr_dir.joinpath(file_name)
+    '''file_path = os.path.join(file_path, file_name)'''
     file = open(file_path, 'r').read()
     if need_parsing == '1':
         text_from_file = re.split("\\n\\n", file)
@@ -52,22 +55,23 @@ def write_from_file(target_of_writing="News_final.txt"):
         text_from_file = re.split("\\n", file)
         for element in text_from_file:
             parsed_list = element.split('---')
-            post_code = parsed_list[0]
-            if post_code == '1':
-                text = normalizing_text(parsed_list[1])
-                city = parsed_list[2]
-                q = NewsFeed().format_text('News', text, city)
-            elif post_code == '2':
-                text_private_add = normalizing_text(parsed_list[1])
-                end_date = parsed_list[2]
-                q = NewsFeed().format_text('Private Ad', text_private_add, end_date)
-            elif post_code == '3':
-                currency_type  = normalizing_text(parsed_list[1])
-                ex_rate = parsed_list[2]
-                q = NewsFeed().format_text('Finance', currency_type , ex_rate)
-            with open(target_of_writing, "a") as file:
-                for i in q:
-                    file.write(i)
+            if parsed_list != ['']:
+                post_code = parsed_list[0]
+                if post_code == '1':
+                    text = normalizing_text(parsed_list[1])
+                    city = parsed_list[2]
+                    q = NewsFeed().format_text('News', text, city)
+                elif post_code == '2':
+                    text_private_add = normalizing_text(parsed_list[1])
+                    end_date = parsed_list[2]
+                    q = NewsFeed().format_text('Private Ad', text_private_add, end_date)
+                elif post_code == '3':
+                    currency_type  = normalizing_text(parsed_list[1])
+                    ex_rate = parsed_list[2]
+                    q = NewsFeed().format_text('Finance', currency_type , ex_rate)
+                with open(target_of_writing, "a") as file:
+                    for i in q:
+                        file.write(i)
 
 
 class NewsFeed:
