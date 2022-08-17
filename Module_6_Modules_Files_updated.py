@@ -10,6 +10,7 @@ import sys
 import re
 import os
 from Module_4_Functions_for_Module6 import normalizing_text
+from Module_7_CSV import *
 from pathlib import Path
 
 
@@ -199,8 +200,12 @@ while True:
             Finance().publ_finance()
         elif choose_type == '4':
             sys.exit()
+        svFile1()
+        svFile2()
     elif choose_input == '2':
         write_from_file()
+        svFile1()
+        svFile2()
     elif choose_input == '3':
         sys.exit()
     else:
