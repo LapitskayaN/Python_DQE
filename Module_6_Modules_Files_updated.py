@@ -22,7 +22,7 @@ def choose_type_input():
     return type_input
 
 def choose_type_news_feed():
-    type_news_feed = input(f"""Enter type news you want to add - \n1 - News, \n2 - PrivateAd, \n3 - Exchange_rate or 
+    type_news_feed = input(f"""Enter type news you want to add - \n1 - News, \n2 - PrivateAd, \n3 - Exchange_rate
 4 - EXIT from App \n    Your choice: """)
     return type_news_feed
 
@@ -88,6 +88,7 @@ def write_from_file(target_of_writing="News_final.txt"):
             print("Parsing list was added to News feed")
         else:
             print("Incorrect choice for need_parsing! Try more")
+    file.close()
 
 
 class NewsFeed:
@@ -169,11 +170,13 @@ class Finance(NewsFeed):
     def finance_deal_type(self):
         currency_type = ""
         while currency_type == '':
-            finance_deal_type = input("Choose finance deal_type SELLING(1), BUYING(2): ")
+            finance_deal_type = input("Choose finance deal_type  1 - SELLING, 2 - BUYING, 4 - EXIT from App : ")
             if finance_deal_type == '1':
                 currency_type = "SELLING"
             elif finance_deal_type == '2':
                 currency_type = "BUYING"
+            elif choose_type == '3':
+                sys.exit()
             else:
                 print("Incorrect currency choice! Try more")
         return currency_type
@@ -188,6 +191,9 @@ class Finance(NewsFeed):
             print("Finance news was successfully added to news feed!\n")
 
 
+
+
+
 while True:
     choose_input = choose_type_input()
     if choose_input == '1':
@@ -200,13 +206,33 @@ while True:
             Finance().publ_finance()
         elif choose_type == '4':
             sys.exit()
-        svFile1()
-        svFile2()
     elif choose_input == '2':
         write_from_file()
-        svFile1()
-        svFile2()
     elif choose_input == '3':
         sys.exit()
     else:
         print("Incorrect choice! Try more")
+    if choose_input == '1' or '2':
+        '''csvFile1()'''
+        fileRead = fileRead(file_name='News_final.txt')
+        list_of_words= list_of_words(text=fileRead)
+        wordsInLower = wordsInLower(list_of_words=list_of_words)
+        csvFile1(wordsInLower =wordsInLower)
+        print("CSV file 1 was created/updated")
+        '''csvFile2()'''
+        letters = list_of_letters(text=fileRead)
+        total=totalLettersCount(letters=letters)
+        letters_dict = countElements(letters)
+        upper = upperLowerLettersDict(letters_dict=letters_dict)[0]
+        list_of_lower_letters=list_of_lower_letters(text=fileRead)
+        countElements = countElements(list_of_lower_letters)
+        csvFile2(total=total, upper=upper, count_all_letter=countElements)
+        print("CSV file 2 was created/updated")
+
+    else:
+        print("CSV file was not created/updated ")
+
+
+
+
+
