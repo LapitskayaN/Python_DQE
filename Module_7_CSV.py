@@ -95,7 +95,12 @@ def csvFile2(total=totalLettersCount(), upper=upperLowerLettersDict()[0],
             writer.writerow(
                 {'letter': key, 'count_all': value, 'count_uppercase': upper_count, 'percentage': str(percent) + '%'})
             # print(key, value, upper_count, str(percent)+'%')
-
+            
+      
+def createCSV():
+    csvFile1()
+    csvFile2()
+    print("CSV files were created/updated")
 '''
 print(list_of_words())
 print(list_of_letters())
