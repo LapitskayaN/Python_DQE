@@ -9,6 +9,9 @@ import re
 import csv
 from pathlib import Path
 
+file_name='News_final.txt'
+file_csv1 = '../Python_DQE_Lapitskaya/task07_01.csv'
+file_csv2 = '../Python_DQE_Lapitskaya/task07_02.csv'
 
 def fileRead(file_name='News_final.txt'):
     curr_dir = Path(__file__).parent
@@ -68,18 +71,19 @@ def upperLowerLettersDict(letters_dict=countElements(list_of_letters())):
 def totalLettersCount(letters=list_of_letters()):
     return len(letters)
 
-def csvFile1(count_words=None):
+
+def csvFile1(count_words=None, wordsInLower = wordsInLower()):
     if count_words is None:
-        count_words = countElements(wordsInLower())
-    with open('../Python_DQE_Lapitskaya/task07_01.csv', 'w', newline='') as csv_file:
+        count_words = countElements(wordsInLower)
+    with open(file_csv1, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter='-')
         for key, value in count_words.items():
             writer.writerow([key, value])
-            
-            
+
+
 def csvFile2(total=totalLettersCount(), upper=upperLowerLettersDict()[0],
                        count_all_letter=countElements(list_of_lower_letters())):
-    with open('../Python_DQE_Lapitskaya/task07_02.csv', 'w', newline='') as csv_file:
+    with open(file_csv2, 'w', newline='') as csv_file:
         header = ['letter', 'count_all', 'count_uppercase', 'percentage']
         writer = csv.DictWriter(csv_file, fieldnames=header)
         writer.writeheader()
@@ -92,4 +96,11 @@ def csvFile2(total=totalLettersCount(), upper=upperLowerLettersDict()[0],
                 {'letter': key, 'count_all': value, 'count_uppercase': upper_count, 'percentage': str(percent) + '%'})
             # print(key, value, upper_count, str(percent)+'%')
 
+'''
+print(list_of_words())
+print(list_of_letters())
+print(upperLowerLettersDict()[0])
+print(upperLowerLettersDict()[1])
+print(totalLettersCount())
+'''
 

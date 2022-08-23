@@ -2,7 +2,7 @@
 
 1---My friend relocated to Poland---02/05/2022 01:58, Warsaw---
 
-1---Mike bought a car---01/03/2022 14:02, Minsk---
-2---I rent flat---Actual until:12/12/2025;---
+89---Mike bought a car---01/03/2022 14:02, Minsk---
+f---I rent flat---Actual until:12/12/2025;---
 3---BUYING---Currency Ex rate EUR on the date: 01/07/2022 is 2.3---
-1---Its warm---02/05/2022 15:00, Tashkent---
+1---Its warm---02/05/2022 15:00, Tashkent---row was not parsedrow was not parsed

@@ -5,16 +5,6 @@ My friend relocated to poland
 02/05/2022 01:58, Warsaw
 
 
-News --------------
-Mike bought a car
-01/03/2022 14:02, Minsk
-
-
-Private Ad --------------
-I rent flat
-Actual until:12/12/2025;
-
-
 Finance --------------
 Buying
 Currency Ex rate EUR on the date: 01/07/2022 is 2.3
@@ -23,3 +13,5 @@ Currency Ex rate EUR on the date: 01/07/2022 is 2.3
 News --------------
 Its warm
 02/05/2022 15:00, Tashkent
+
+rows was/were  parsed 3
