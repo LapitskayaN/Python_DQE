@@ -1,0 +1,18 @@
+[{
+  "post_code": "1",
+  "post_name": "News",
+  "post_text": "News add from json file",
+  "post_city": "Minsk"
+},
+{
+  "post_code": "2",
+  "post_name": "PrivateAd",
+  "post_text": "PrivateAd add from json file",
+  "end_date": "30/11/2021"
+},
+{
+  "post_code": "3",
+  "post_name": "Finance",
+  "post_text": "USD add from json file",
+  "ex_rate": "2.5"
+}]
