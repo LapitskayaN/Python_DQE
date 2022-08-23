@@ -11,37 +11,44 @@ import re
 import os
 from Module_4_Functions_for_Module6 import normalizing_text
 from Module_7_CSV import *
+from Module_8_JSON import * 
 from pathlib import Path
 
 
 def current_date():
     return datetime.datetime.now().strftime("%d/%m/%y %I:%M")
 
-def choose_type_folder():
-    type_folder = input(f"""Choose folder for file:-\n1 - Default folder, \n2 - Choose folder \n3 - EXIT from App2
-      Your choice: """)
-    return type_folder
-
 def write_from_file(target_of_writing="News_final.txt"):
     file_path = ''
     file_name = ''
     text_from_file = ''
-    while file_path == '':
-        type_folder = choose_type_folder()
-        file_path = ''
-        file_name = ''
+    file_path_correct = ''
+    while file_path_correct == '':
+        type_folder = input(f"""Choose folder for file:-\n1 - Default folder, \n2 - Choose folder \n3 - EXIT from App
+              Your choice: """)
         if type_folder == '1':
             file_path = './'
             file_name = 'News_add.txt'
+            curr_dir = Path(__file__).parent
+            file_path = curr_dir.joinpath(file_name)
+            try:
+                file = open(file_path, 'r').read()
+                file_path_correct = 'yes'
+            except:
+                print("No such file! Try more")
         elif type_folder == '2':
-            file_path = input(r"Enter path to file (in format D:\) ")
-            file_name = input('Enter your file name\n')
+            file_path_input = input(r"Enter path to file (in format D:\) ")
+            file_name_input = input('Enter your file name\n')
+            file_path = file_path_input + file_name_input
+            try:
+                file = open(file_path, 'r').read()
+                file_path_correct = 'yes'
+            except:
+                print("No such file! Try more")
+        elif type_folder == '3':
+            sys.exit()
         else:
             print("Incorrect choice for type_folder! Try more")
-    curr_dir = Path(__file__).parent
-    file_path = curr_dir.joinpath(file_name)
-    '''file_path = os.path.join(file_path, file_name)'''
-    file = open(file_path, 'r').read()
     while text_from_file == '':
         need_parsing = input(f"""Is text need parsing: - \n1 - No, \n2 - Yes  \n    Your choice: """)
         if need_parsing == '1':
