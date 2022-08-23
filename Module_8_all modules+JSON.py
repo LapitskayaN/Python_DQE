@@ -1,10 +1,17 @@
 """
+Expand previous Homework 5 with additional class, which allow to provide records by text file:
+1.Define your input format (one or many records)
+2.Default folder or user provided file path
+3.Remove file if it was successfully processed
+4.Apply case normalization functionality form Homework 3/4
+
 Task 8
 Description
 Expand previous Homework 5/6/7 with additional class, which allow to provide records by JSON file:
 1.Define your input format (one or many records)
 2.Default folder or user provided file path
 3.Remove file if it was successfully processed
+
 """
 import datetime
 import sys
@@ -245,6 +252,61 @@ class FileJson:
             self.fileWriteJson('News_final.txt', p)
 
 
+class FileXml:
+    pass
+
+    @staticmethod
+    def fileReadXml(importfilepath='./Import/my_xml.xml'):
+        xml_file = ET.parse(importfilepath)
+        root = xml_file.getroot()
+        return root
+
+    @staticmethod
+    def fileWriteTxt(outputfilepath='../result.txt', text=''):
+        f = open(outputfilepath, 'a')
+        f.write(text)
+        f.close()
+        return outputfilepath
+
+    @staticmethod
+    def parseFileXml(xml_root):
+        # xml_root = FileXml.fileReadXml()
+        xml_dict = {}
+        list_common = []
+        db = DBConnection()
+        for post in xml_root:
+            for element in post:
+                xml_dict[element.tag] = element.text
+            list_common.append(xml_dict)
+            xml_dict = {}
+        for some_dict in range(len(list_common)):
+            current_dict = list_common[some_dict]
+            post_code = current_dict["post_code"]
+            if post_code == '1':
+                text = current_dict["post_text"]
+                city = current_dict["city"]
+                post = News(text, city)
+                post_date = datetime.today().strftime('%d/%m/%Y %H.%M')
+                db.insertNews(post_code, text, city, post_date)
+            elif post_code == '2':
+                text = current_dict["post_text"]
+                end_date = current_dict["date"]
+                post = PrivateAd(text, end_date)
+                db.insertPrivateAd(post_code, text, end_date)
+            elif post_code == '3':
+                text = current_dict["post_text"]
+                hashtag = current_dict["hashtag"]
+                post = LifeHack(text, hashtag)
+                values = f"{post_code}, 'Lifehack', \"{text}\", '{hashtag}', '{datetime.today().strftime('%d/%m/%Y %H.%M')}'"
+                db.insert('Lifehack', values)
+                post_date = datetime.today().strftime('%d/%m/%Y %H.%M')
+                db.insertLifehack(post_code, text, hashtag, post_date)
+            else:
+                post = News('', '')
+            FileXml.fileWriteTxt('../result.txt', post.printPost())
+        db.closeCursor()
+
+
 def start():
     while True:
         choose_input = input(f"""Choose input type for NewsFeed: - \n1 - Input, \n2 - From file txt, \n3 - From file JSON, 
@@ -285,21 +347,3 @@ def start():
 
 start()
 
-
-'''  
-csvFile1()
-            """fileRead = fileRead(file_name='News_final.txt')
-            list_of_words= list_of_words(text=fileRead)
-            wordsInLower = wordsInLower(list_of_words=list_of_words)
-            csvFile1(wordsInLower =wordsInLower)"""
-            print("CSV file 1 was created/updated")
-            csvFile2()
-            letters = list_of_letters(text=fileRead)
-            total=totalLettersCount(letters=letters)
-            letters_dict = countElements(letters)
-            upper = upperLowerLettersDict(letters_dict=letters_dict)[0]
-            list_of_lower_letters=list_of_lower_letters(text=fileRead)
-            countElements = countElements(list_of_lower_letters)
-            csvFile2(total=total, upper=upper, count_all_letter=countElements)
-            print("CSV file 2 was created/updated")
-'''
