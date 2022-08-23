@@ -85,7 +85,7 @@ def write_from_file(target_of_writing="News_final.txt"):
             with open(target_of_writing, "a") as file:
                 file.write('\nrows was/were  parsed ')
                 file.write(str(count_parsed))
-            with open( 'file_is not parsed.txt.txt', "a") as file:
+            with open( 'rows_not_parsed.txt', "a") as file:
                 file.write('\nrows was/were not parsed ')
                 file.write(str(count_not_parsed))
             os.remove(file_path)
