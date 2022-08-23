@@ -90,7 +90,7 @@ def write_from_file(target_of_writing="News_final.txt"):
                         count_parsed = count_parsed + 1;
                     else:
                         q = ''
-                        with open('file_is not parsed.txt', "a") as file:
+                        with open('rows_not_parsed.txt', "a") as file:
                             file.write(str(parsed_list))
                         count_not_parsed = count_not_parsed + 1;
                     with open(target_of_writing, "a") as file:
