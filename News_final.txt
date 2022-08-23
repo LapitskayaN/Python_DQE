@@ -1,6 +1,41 @@
 
 
 News --------------
+News add from json file
+Minsk
+
+
+Private Ad --------------
+PrivateAd add from json file
+30/11/2021
+
+
+Finance --------------
+USD add from json file
+2.5
+
+
+News --------------
+News add from xml file
+Minsk
+
+
+Private Ad --------------
+PrivateAd add from xml file
+22/08/2022
+
+
+News --------------
+News add from xml file
+Grodno
+
+
+Finance --------------
+USD add from xml file
+2.5
+
+
+News --------------
 My friend relocated to poland
 02/05/2022 01:58, Warsaw
 
@@ -15,3 +50,9 @@ Its warm
 02/05/2022 15:00, Tashkent
 
 rows was/were  parsed 3
+
+News --------------
+Braslav
+23/08/22 04:15, Its warm
+
+

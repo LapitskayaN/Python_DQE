@@ -1,0 +1,26 @@
+<my_xml>
+    <post>
+      <post_code>1</post_code>
+      <post_name>News</post_name>
+      <post_text>News add from xml file</post_text>
+      <post_city>Minsk</post_city>
+    </post> 
+    <post>
+      <post_code>2</post_code>
+      <post_name>PrivateAd</post_name>
+      <post_text>PrivateAd add from xml file</post_text>
+      <end_date>22/08/2022</end_date>
+    </post>
+    <post>
+      <post_code>1</post_code>
+      <post_name>News</post_name>
+      <post_text>News add from xml file</post_text>
+      <post_city>Grodno</post_city>
+    </post>
+    <post>
+      <post_code>3</post_code>
+      <post_name>Finance</post_name>
+      <post_text>USD add from xml file</post_text>
+      <ex_rate>2.5</ex_rate>
+    </post>
+</my_xml>
